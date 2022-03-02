@@ -24,7 +24,7 @@ class DfaClass:
         self.next = [0] * len(self.possibleStringList)
         self.dictionaryCounter = dictionaryCounter
         
-        def grabStateNum(self,inputString):
+    def grabStateNum(self,inputString):
             CharactersOfTheString = []
             stateNum = 0
             if (inputString == ""):
@@ -48,7 +48,7 @@ class DfaClass:
                     exit(9)
             return stateNum
         
-        def isValid(self,string):
+    def isValid(self,string):
             if len(string) < 6:
                 return True
             founda = False
@@ -69,7 +69,7 @@ class DfaClass:
             else:
                 return False
             
-        def transBigQual(self, stateNum, string):
+    def transBigQual(self, stateNum, string):
             stateCounter = 0
             string1 = "".join((string,"a"))
             string2 = "".join((string,"b"))

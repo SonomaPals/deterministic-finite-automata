@@ -100,3 +100,13 @@ def count(self,n):
         self.prev = self.next
         self.next = [0] * len(self.possibleStringList)
     return self.prev[0]
+
+def main():
+    newObject = DfaClass()
+    userInput = int(input("Enter a number n: "))
+    print()
+    print("n =", userInput, "    Answer:", count(newObject,userInput))
+    print()
+    return 0
+
+main()

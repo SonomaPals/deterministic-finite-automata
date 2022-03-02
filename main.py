@@ -68,3 +68,27 @@ class DfaClass:
                 return True
             else:
                 return False
+            
+        def transBigQual(self, stateNum, string):
+            stateCounter = 0
+            string1 = "".join((string,"a"))
+            string2 = "".join((string,"b"))
+            string3 = "".join((string,"c"))
+            string4 = "".join((string,"d"))
+            if(self.isValid(string1)):
+                if(5 < len(string1)):
+                    string1 = string1[1:]
+                stateCounter += self.prev[self.grabStateNum(string1)]
+            if(self.isValid(string2)):
+                if(5 < len(string2)):
+                    string2 = string2[1:]
+                stateCounter += self.prev[self.grabStateNum(string2)]
+            if(self.isValid(string3)):
+                if(5 < len(string3)):
+                    string3 = string3[1:]
+                stateCounter += self.prev[self.grabStateNum(string3)]
+            if(self.isValid(string4)):
+                if(5 < len(string4)):
+                    string4 = string4[1:]
+                stateCounter += self.prev[self.grabStateNum(string4)]
+            self.next[stateNum] = stateCounter

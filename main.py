@@ -47,3 +47,24 @@ class DfaClass:
                     print("ERROR: NO a,b,c, or d detected")
                     exit(9)
             return stateNum
+        
+        def isValid(self,string):
+            if len(string) < 6:
+                return True
+            founda = False
+            foundb = False
+            foundc = False
+            foundd = False
+            for char in string:
+                if char == 'a':
+                    founda = True
+                if char == 'b':
+                    foundb = True
+                if char == 'c':
+                    foundc = True
+                if char == 'd':
+                    foundd = True
+            if (founda and foundb and foundc and foundd):
+                return True
+            else:
+                return False

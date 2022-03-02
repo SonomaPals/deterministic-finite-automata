@@ -92,3 +92,11 @@ class DfaClass:
                     string4 = string4[1:]
                 stateCounter += self.prev[self.grabStateNum(string4)]
             self.next[stateNum] = stateCounter
+            
+def count(self,n):
+    for c in range(n):
+        for j, k in self.dictionaryCounter.items(): 
+            self.transBigQual(j, k)
+        self.prev = self.next
+        self.next = [0] * len(self.possibleStringList)
+    return self.prev[0]

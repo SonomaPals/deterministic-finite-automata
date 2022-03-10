@@ -1,7 +1,7 @@
 import itertools
 from queue import Queue
 
-# Problem 1: 
+#Problem 1: 
 class DfaClass:
     def __init__(self):
         possibleStringList = []
@@ -139,16 +139,29 @@ def shortest_string_accepted(k, d):
     
 
 def main():
+    print("Select from the following options by selecting the option number:")
+    print()
+    print("1: Compute the number of strings 'w' of length n over {a,b,c,d}\n")
+    print("2: Given a positive integer k > 0 and a subset S of {0,1,2,3,..,9} of digits,")
+    print("find the smallest positive integer N > 0 such that N % k = 0 and N uses only the digits from S\n")
+    print("0: Terminate the program\n")
 
-    print("Problem 1")
-    n = 100
-    newObject = DfaClass()
-    print(count(newObject, n))
+    user_input = int(input("Enter Selection: "))
 
-    print("Problem 2")
-    k = 26147
-    d = [1, 3]
-    print(shortest_string_accepted(k, d))
+    while user_input != 0:
+        if user_input == 1:
+            newObject = DfaClass() 
+            n = int(input("Enter length n: "))  
+            print()
+            print("length n =", n, "   Number of strings:",  count(newObject,n))  
+            print()    
+        user_input = int(input("Enter Selection:"))
+
+        if user_input == 2:
+            k = int(input("Enter positive integer k = "))
+            d = list(map(int,input("Enter a subset S of {0,1,2,3,..,9} of digits permitted follow by a space: ").strip().split()))[:]
+            shortest_string_accepted(k, d)
+        user_input = int(input("Enter Selection:"))
 
     return 0
 

@@ -46,22 +46,22 @@ class DfaClass:
         if (inputString == ""):
             return 0
         # Copy each character fromt he inputted string to a list
-        for char in inputString:
-            CharactersOfTheString.append(char)
+        for x in inputString:
+            CharactersOfTheString.append(x)
         # Base4 encoding
-        for i in range(0, len(CharactersOfTheString)):
+        for index in range(0, len(CharactersOfTheString)):
             # Search for an 'a' in the string
-            if CharactersOfTheString[i] == 'a':
-                stateNum = stateNum + 1 * pow(4, (len(CharactersOfTheString) - 1) - i)
+            if CharactersOfTheString[index] == 'a':
+                stateNum = stateNum + 1 * pow(4, (len(CharactersOfTheString) - 1) - index)
             # Search for an 'b' in the string
-            elif CharactersOfTheString[i] == 'b':
-                stateNum = stateNum + 2 * pow(4, (len(CharactersOfTheString) - 1) - i)
+            elif CharactersOfTheString[index] == 'b':
+                stateNum = stateNum + 2 * pow(4, (len(CharactersOfTheString) - 1) - index)
             # Search for an 'c' in the string
-            elif CharactersOfTheString[i] == 'c':
-                stateNum = stateNum + 3 * pow(4, (len(CharactersOfTheString) - 1) - i)
+            elif CharactersOfTheString[index] == 'c':
+                stateNum = stateNum + 3 * pow(4, (len(CharactersOfTheString) - 1) - index)
             # Search for an 'd' in the string
-            elif CharactersOfTheString[i] == 'd':
-                stateNum = stateNum + 4 * pow(4, (len(CharactersOfTheString) - 1) - i)
+            elif CharactersOfTheString[index] == 'd':
+                stateNum = stateNum + 4 * pow(4, (len(CharactersOfTheString) - 1) - index)
             #If NONE of these work then the string does not contain a,b,c, or d and we should exit
             else:
                 print("NO a,b,c, or d detected. Exiting. Goodbye")

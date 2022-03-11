@@ -155,7 +155,6 @@ def main():
             print()
             print("length n =", n, "   Number of strings:",  count(newObject,n))  
             print()    
-        user_input = int(input("Enter Selection:"))
 
         if user_input == 2:
             k = int(input("Enter positive integer k = "))

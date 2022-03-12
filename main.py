@@ -145,7 +145,10 @@ def shortest_string_accepted(k, d):
     visited = [0] * k  # initializing visited, parent and label to false
     parent = [0] * k
     label = [0] * k
-
+    listContainingZero = [0]
+    if (d == listContainingZero):
+        return print("No Solution")
+    
     for i in d:             # updating the table with the user input
         Q.put(i)
         visited[i] = 1

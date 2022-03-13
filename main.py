@@ -150,7 +150,7 @@ def shortest_string_accepted(k, d):
         return print("No Solution")
     
     for i in d:             # updating the table with the user input
-        if i != 0:
+        if i != 0:          # for each case that cointains a 0 do not add it to the queue
             Q.put(i)
             visited[i] = 1
             parent[i] = 0

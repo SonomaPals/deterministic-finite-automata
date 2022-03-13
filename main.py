@@ -1,62 +1,84 @@
 import itertools
 from queue import Queue
 
-#Problem 1: 
+#--------------------------
+#--------Problem 1---------
+#--------------------------
+
+# The reason a class is used is so that we can access the variable in other functions
 class DfaClass:
     def __init__(self):
+        # Two lists will be created
+        # One list to hold all possible strings in the buffer
+        # One list to hold the number of each state
         possibleStringList = []
         dictionaryCounter = {}
         counterList = []
+        # Append state 0 to the list of state numbers
         counterList.append(0)
         counterForDict = 0
+        # Append state 0 which is an empty string to the list of possible states in the buffer
         possibleStringList.append("")
+        # Cartesian product of abcd and to get all possible states in the buffer of length 5
         for i in range(1, 6):
             for str in itertools.product("abcd", repeat=i):
                 someString = ""
                 someString = someString.join(str)
                 possibleStringList.append(someString)
                 counterForDict = counterForDict + 1
-                counterList.append(counterForDict)               
+                counterList.append(counterForDict)
+        # Create the dictionary for state numbers and states               
         for aString in possibleStringList: 
             key = possibleStringList.index(aString)
             dictionaryCounter[key] = aString
+        # Create the variables like prev and next that will be used in other functions
         self.possibleStringList = possibleStringList
         next = [0] * len(self.possibleStringList)
         self.prev = [1] * len(self.possibleStringList)
         self.next = next
         self.dictionaryCounter = dictionaryCounter
 
+    # Uses base4 encoding to the the state number on transition
     def grabStateNum(self,inputString):
-        CharactersOfTheString = []
         stateNum = 0
+        CharactersOfTheString = []
+        # We know an empty string will have an Answer of 0
         if (inputString == ""):
             return 0
-        for char in inputString:
-            CharactersOfTheString.append(char)
-        for i in range(0, len(CharactersOfTheString)):
-            if CharactersOfTheString[i] == 'a':
-                stateNum = stateNum + 1 * pow(4, (len(CharactersOfTheString) - 1) - i)
-
-            elif CharactersOfTheString[i] == 'b':
-                stateNum = stateNum + 2 * pow(4, (len(CharactersOfTheString) - 1) - i)
-
-            elif CharactersOfTheString[i] == 'c':
-                stateNum = stateNum + 3 * pow(4, (len(CharactersOfTheString) - 1) - i)
-
-            elif CharactersOfTheString[i] == 'd':
-                stateNum = stateNum + 4 * pow(4, (len(CharactersOfTheString) - 1) - i)
+        # Copy each character fromt he inputted string to a list
+        for x in inputString:
+            CharactersOfTheString.append(x)
+        # Base4 encoding
+        for index in range(0, len(CharactersOfTheString)):
+            # Search for an 'a' in the string
+            if CharactersOfTheString[index] == 'a':
+                stateNum = stateNum + 1 * pow(4, (len(CharactersOfTheString) - 1) - index)
+            # Search for an 'b' in the string
+            elif CharactersOfTheString[index] == 'b':
+                stateNum = stateNum + 2 * pow(4, (len(CharactersOfTheString) - 1) - index)
+            # Search for an 'c' in the string
+            elif CharactersOfTheString[index] == 'c':
+                stateNum = stateNum + 3 * pow(4, (len(CharactersOfTheString) - 1) - index)
+            # Search for an 'd' in the string
+            elif CharactersOfTheString[index] == 'd':
+                stateNum = stateNum + 4 * pow(4, (len(CharactersOfTheString) - 1) - index)
+            #If NONE of these work then the string does not contain a,b,c, or d and we should exit
             else:
-                print("ERROR: NO a,b,c, or d detected")
+                print("NO a,b,c, or d detected. Exiting. Goodbye")
                 exit(9)
         return stateNum
 
+    # Function to check if the string being transitioned to is in the DFA
     def isValid(self,string):
+        # If the length of the string is less than 6 return true
         if len(string) < 6:
             return True
+        # Initiliaze 4 variables to be False for a string appended with a,b,c, and d
         founda = False
         foundb = False
         foundc = False
         foundd = False
+        #Check the string to see if it contains a,b,c, and d. 
         for char in string:
             if char == 'a':
                 founda = True
@@ -66,11 +88,16 @@ class DfaClass:
                 foundc = True
             if char == 'd':
                 foundd = True
+        #Must have found all 4 a,b,c, and d to return True
         if (founda and foundb and foundc and foundd):
             return True
         else:
             return False
-        
+     
+    # Function to append a, b, c, and d to the given string
+    # Then finds the transiton to the next state on the char 
+    # Only if it is a valid string being less than length 6
+    # or containing a, b, c, and d   
     def transBigQual(self, stateNum, string):
         stateCounter = 0
         string1 = "".join((string,"a"))
@@ -95,6 +122,10 @@ class DfaClass:
             stateCounter += self.prev[self.grabStateNum(string4)]
         self.next[stateNum] = stateCounter
 
+# Function to calculate the Delta of each state in the dictionary 
+# on each of the four characters a,b,c, and d
+# Then computes the number of strings w of length n over with the given
+# proprties. After computer it returns this as the answer
 def count(self,n):
     for c in range(n):
         for j, k in self.dictionaryCounter.items(): 
@@ -104,18 +135,26 @@ def count(self,n):
     return self.prev[0]
 
 ##############################################################################################################
-# Problem 2:
+
+#--------------------------
+#--------Problem 2---------
+#--------------------------
+
 def shortest_string_accepted(k, d):
     Q = Queue()
     visited = [0] * k  # initializing visited, parent and label to false
-    parent = [0] * k
+    parent = [-1] * k
     label = [0] * k
-
+    listContainingZero = [0]
+    if (d == listContainingZero):
+        return print("No Solution")
+    
     for i in d:             # updating the table with the user input
-        Q.put(i)
-        visited[i] = 1
-        parent[i] = 0
-        label[i] = i
+        if i != 0:
+            Q.put(i)
+            visited[i] = 1
+            parent[i] = 0
+            label[i] = i
 
     while not Q.empty():
         current = Q.get()   # deleting from the Queue
@@ -135,9 +174,14 @@ def shortest_string_accepted(k, d):
     while parent[curr] > 0:
         result += str(label[parent[curr]])
         curr = parent[curr]
-    print(result[::-1])           
+    return print(result[::-1])  #Reverse the result and print it         
     
 
+#--------------------------
+#------Driver Function-----
+#--------------------------
+
+# Builds out UI and runs the specified option
 def main():
     print("Select from the following options by selecting the option number:")
     print()
@@ -153,16 +197,14 @@ def main():
             newObject = DfaClass() 
             n = int(input("Enter length n: "))  
             print()
-            print("length n =", n, "   Number of strings:",  count(newObject,n))  
+            print("n =", n, "   Answer:",  count(newObject,n))  
             print()    
-        user_input = int(input("Enter Selection:"))
 
         if user_input == 2:
             k = int(input("Enter positive integer k = "))
             d = list(map(int,input("Enter a subset S of {0,1,2,3,..,9} of digits permitted follow by a space: ").strip().split()))[:]
             shortest_string_accepted(k, d)
         user_input = int(input("Enter Selection:"))
-
     return 0
 
 main()

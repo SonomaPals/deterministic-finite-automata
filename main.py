@@ -143,21 +143,21 @@ def count(self,n):
 def shortest_string_accepted(k, d):
     Q = Queue()
     visited = [0] * k  # initializing visited, parent and label to false
-    parent = [0] * k
+    parent = [-1] * k
     label = [0] * k
     listContainingZero = [0]
     if (d == listContainingZero):
         return print("No Solution")
     
     for i in d:             # updating the table with the user input
-        Q.put(i)
-        visited[i] = 1
-        parent[i] = 0
-        label[i] = i
-
+        if i != 0:
+            Q.put(i)
+            visited[i] = 1
+            parent[i] = 0
+            label[i] = i
     while not Q.empty():
         current = Q.get()   # deleting from the Queue
-        for digit in d:         # all posible digits ex. [1, 3]
+        for digit in d:         # all posible digits ex. [1, 3]            
             delta = (10 * current + digit) % k  # Mod that number
             if visited[delta] == 0:
                 visited[delta] = 1
@@ -170,10 +170,10 @@ def shortest_string_accepted(k, d):
     result = ""
     curr = 0
     result += str(label[curr])
-    while parent[curr] > 0:
+    while parent[curr] != 0:
         result += str(label[parent[curr]])
         curr = parent[curr]
-    print(result[::-1])  #Reverse the result and print it         
+    return print(result[::-1])  #Reverse the result and print it         
     
 
 #--------------------------
